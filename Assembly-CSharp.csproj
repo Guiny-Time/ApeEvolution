@@ -42,34 +42,30 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
-     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+     <Compile Include="Assets\Quirky Series Ultimate\_Scripts\QuirkySeriesDemo.cs" />
+     <Compile Include="Assets\Quirky Series Ultimate\_Scripts\RotateOnScroll.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Materials" />
-     <Folder Include="Assets\Presets\Defaults" />
+     <Folder Include="Assets\Quirky Series Ultimate\_Shader" />
      <Folder Include="Assets\Scripts" />
-     <Folder Include="Assets\ExampleAssets\Textures\Props\Jigsaw" />
-     <Folder Include="Assets\ExampleAssets\Textures\Drywall" />
-     <Folder Include="Assets\ExampleAssets\Textures\Plastic" />
-     <Folder Include="Assets\Presets" />
-     <Folder Include="Assets\ExampleAssets\Textures\Props\Hammer" />
-     <Folder Include="Assets\ExampleAssets\Textures\Props\Paint" />
+     <None Include="Assets\Quirky Series Ultimate\_Shader\SoftSurface.shader" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE\Prefabs\Single LODs" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE\Materials" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE\Models" />
+     <Folder Include="Assets\Quirky Series Ultimate\_Scripts" />
+     <Folder Include="Assets\Arts" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE\Textures" />
      <Folder Include="Assets\Settings" />
-     <Folder Include="Assets\ExampleAssets\Textures\Concrete" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE" />
      <Folder Include="Assets\Scenes" />
-     <Folder Include="Assets\ExampleAssets\Textures\Metal" />
-     <Folder Include="Assets\TutorialInfo" />
-     <Folder Include="Assets\ExampleAssets" />
-     <Folder Include="Assets\TutorialInfo\Scripts" />
-     <Folder Include="Assets\TutorialInfo\Icons" />
-     <Folder Include="Assets\ExampleAssets\Models" />
-     <Folder Include="Assets\ExampleAssets\Textures\Props\Construction_Light" />
-     <Folder Include="Assets\ExampleAssets\Textures\Props" />
-     <Folder Include="Assets\ExampleAssets\Shaders" />
-     <Folder Include="Assets\ExampleAssets\Textures" />
-     <Folder Include="Assets\ExampleAssets\Textures\Props\HardHat" />
-     <Folder Include="Assets\ExampleAssets\Prefabs" />
-     <Folder Include="Assets\ExampleAssets\Textures\Wood" />
-     <Folder Include="Assets\ExampleAssets\Materials" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE\Prefabs" />
+     <Folder Include="Assets\Quirky Series Ultimate" />
+     <Folder Include="Assets\Quirky Series Ultimate\_Shader\URP (Unity 2019.3.0f3 and above)" />
+     <Folder Include="Assets\Quirky Series Ultimate\_Animations" />
+     <Folder Include="Assets\Quirky Series Ultimate\_Animations\Shapekey" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE\Animations" />
+     <None Include="Assets\Quirky Series Ultimate\_Shader\ToonRamp.shader" />
+     <Folder Include="Assets\Quirky Series Ultimate\FREE\Demo" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.26f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
@@ -855,6 +851,36 @@
      </Reference>
      <Reference Include="Unity.SysrootPackage.Editor">
      <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.SysrootPackage.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.IK.Editor">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.IK.Runtime">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Common.Editor">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Animation.Editor">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Animation.Runtime">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Common.Runtime">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.InternalAPIEngineBridge.001">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.InternalAPIEditorBridge.001">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+     </Reference>
+     <Reference Include="PsdPlugin">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Psdimporter.Editor">
+     <HintPath>F:\github\ApeEvolution\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>
