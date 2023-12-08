@@ -1,0 +1,12 @@
+Key,English,Chinese
+Settings.Example.Title,Settings,设置
+Settings.Example.Difficulty,Difficulty,难度
+Settings.Example.Difficulty.Easy,Easy,简�?
+Settings.Example.Difficulty.Normal,Medium,中等
+Settings.Example.Difficulty.Hard,Hard,困难
+Settings.Example.SfxVolume,Effects volume,音效音量
+Settings.Example.MusicVolume,Music volume,音乐音量
+Settings.Example.PlayTime,Play time: {0:N1} h.,游戏时长: {0:N1} h.
+Setting.DialogTest0," god: Hi there, I am your tutor!",上帝：那边的小子你好，我是你的导师！
+Setting.DialogTest1," god: Good morning, I am glad to seeya here",上帝：早上好，很高兴在这里见到你
+Setting.DialogTest2," god: Now, I will teach you how to make these apes evolute into human beings",上帝：现在，让我来教你怎么让这群猩猩进化成人类。
