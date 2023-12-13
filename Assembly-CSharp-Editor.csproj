@@ -41,17 +41,17 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\DropdownEditor.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizedTextEditor.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationUtils.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationSettingsWindow.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\EditorActions.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationEditor.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationSyncEditor.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationEditorWindow.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizedTranslate.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\Editor\TextEditor.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationSyncEditor.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationEditor.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizedTranslate.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizedTextEditor.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\EditorActions.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\DropdownEditor.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationSettingsEditor.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationSettingsWindow.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationUtils.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Editor\LocalizationEditorWindow.cs" />
      <Folder Include="Assets\SimpleLocalization\Scripts\Editor" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.26f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

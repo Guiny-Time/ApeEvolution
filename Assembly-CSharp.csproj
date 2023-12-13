@@ -42,18 +42,24 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Utils\ResMgr.cs" />
-     <Compile Include="Assets\Scripts\AudioMgr.cs" />
-     <Compile Include="Assets\Scripts\Ape.cs" />
-     <Compile Include="Assets\Scripts\Utils\BaseMgr.cs" />
+     <Compile Include="Assets\Scripts\LanguageMgr.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizationSettings.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizedDropdown.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Constants.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizationManager.cs" />
-     <Compile Include="Assets\Scripts\LanguageMgr.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\Sheet.cs" />
-     <Compile Include="Assets\SimpleLocalization\Scripts\LocalizationSync.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizedText.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Constants.cs" />
+     <Compile Include="Assets\Scripts\AudioMgr.cs" />
      <Compile Include="Assets\Scripts\UI_TitleMgr.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\LocalizationSync.cs" />
+     <Compile Include="Assets\Scripts\Ape.cs" />
+     <Compile Include="Assets\SimpleLocalization\Scripts\Sheet.cs" />
+     <Compile Include="Assets\Scripts\Utils\BaseMgr.cs" />
+     <Compile Include="Assets\Scripts\MainController.cs" />
+     <Compile Include="Assets\Scripts\UI_MainMgr.cs" />
+     <Compile Include="Assets\Scripts\Utils\PoolData.cs" />
+     <Compile Include="Assets\Scripts\Utils\PoolMgr.cs" />
+     <Compile Include="Assets\Scripts\Utils\PriorityQueue.cs" />
+     <Compile Include="Assets\Scripts\Utils\EventCenter.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -82,6 +88,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
      <Folder Include="Assets\Scripts\Utils" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+     <Folder Include="Assets\Resources" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
      <Folder Include="Assets\TextMesh Pro\Shaders" />
