@@ -27,13 +27,13 @@ public class Ape : MonoBehaviour
     /// </summary>
     [Header("Basic Parameters")]
     [SerializeField]private int age;
-    
+
     /// <summary>
     /// 性别 gender<br></br>
     /// 1(true): male<br></br>
     /// 0(false): female
     /// </summary>
-    [SerializeField]private int gender { get; set; }
+    public int gender;
 
     /// <summary>
     /// 健康指数health point<br></br>
@@ -69,7 +69,7 @@ public class Ape : MonoBehaviour
     /// 通过魅力(C)、免疫力(I)、健康指数(H)、年龄(A)综合计算得到<br></br>
     /// formula:(H+I)*C/A
     /// </summary>
-    [SerializeField] private float overall_attractiveness_point;
+    public int overall_attractiveness_point;
 
 
     //
@@ -78,25 +78,25 @@ public class Ape : MonoBehaviour
 
     
     /// <summary>
-    /// P in illness, and P to be healed after ill
+    /// 免疫力P in illness, and P to be healed after ill
     /// </summary>
     [Header("Gene Parameters")]
     [SerializeField]private float immunity;
 
     /// <summary>
-    /// related to it's gene<br></br>
+    /// 智力related to it's gene<br></br>
     /// high intelligence can live better in terrible environment
     /// </summary>
     [SerializeField]private float intelligence;
 
     /// <summary>
-    /// P in gene mutation
+    /// 变异率P in gene mutation
     /// mutation can be good or bad
     /// </summary>
     [SerializeField]private float mutation;
 
     /// <summary>
-    /// Charisma, it means, beautiful/handsome or not.<br></br>
+    /// 魅力Charisma, it means, beautiful/handsome or not.<br></br>
     /// low: ugly; high: cool<br></br>
     /// P in met with different gender and make baby (what
     /// </summary>
@@ -104,30 +104,47 @@ public class Ape : MonoBehaviour
 
     // protected List<Gene> gene_text;
     
+    
+    //
+    // --- EVENT PARAMS --- //
+    //
+    
+    
+    /// <summary>
+    /// 是否处于发情期。母猩猩性成熟且未怀孕时处于发情期；公猩猩性成熟后一直处于发情期
+    /// </summary>
+    [Header("Event Parameters")]
+    [SerializeField] private bool inOestrus;
 
 
     private void Start()
     {
-        EventCenter.GetInstance().AddEventListener("OnOestrus",Move);
+        // inOestrus = (sexualMaturity && !pregnant);
+        // ApeMgr.GetInstance().AddApe(this, overall_attractiveness_point);
     }
 
     private void Update()
     {
         if (sexualMaturity && !pregnant)
         {
-            EventCenter.GetInstance().EventTrigger("OnOestrus");
-            EventCenter.GetInstance().RemoveEventListener("OnOestrus",Move);
+            Move_Oestrus();
+        }
+        else
+        {
+            Move_Normal();
         }
     }
 
     public void InitApe()
     {
-        age = Random.Range(0, 25);  // 随机生成0~24岁的猩猩
+        age = Random.Range(5, 25);  // 随机生成5~24岁的猩猩
         sexualMaturity = (age >= 16);
         gender = Random.Range(0, 2);
         health = 100.0f;
         ill = false;
         pregnant = false;
+        overall_attractiveness_point = Random.Range(0, 100);
+        ApeMgr.GetInstance().AddApe(this, overall_attractiveness_point);
         // 基因
     }
 
@@ -157,19 +174,32 @@ public class Ape : MonoBehaviour
         
     }
 
-    public void Move()
+    public void Move_Normal()
     {
-        print("???");
-        if (sexualMaturity && !pregnant)
-        {
-            //寻找最佳配偶并靠近
-        }
-        else
-        {
-            //漫无目的的乱动
-            StartCoroutine(MoveLerp(1,transform.position, 0.5f));
+        //漫无目的的乱动
+        StartCoroutine(MoveLerp(1,transform.position,0.5f));
             
-        }
+    }
+    
+    public void Move_Oestrus()
+    {
+        /*if (MainController.GetInstance().f_apes.Peek().gameObject)
+        {
+            print("Oestrus move");
+            //朝最佳配偶移动
+            StartCoroutine(MoveLerpOestrus(1,transform.position, MainController.GetInstance().f_apes.Peek().gameObject.transform.position));
+
+        }*/
+          
+    }
+
+    /// <summary>
+    /// 判断是否处于发情期
+    /// </summary>
+    /// <returns></returns>
+    public bool InOestrus()
+    {
+        return (sexualMaturity && !pregnant);
     }
 
     IEnumerator MoveLerp(float speed, Vector3 startPos, float drunkenness)
@@ -183,7 +213,7 @@ public class Ape : MonoBehaviour
         float timer = 0.0f;
         while (i < 1.0f) {
             i += Time.deltaTime * rate;
-            timer += Time.deltaTime;
+            timer += Time.deltaTime; 
             if (timer >= 0.5f) {
                 drunkenStep = endPos + new Vector3(Random.Range(-drunkenness, drunkenness), Random.Range(-drunkenness, drunkenness), 0);
                 timer = 0.0f;
@@ -195,6 +225,20 @@ public class Ape : MonoBehaviour
         StartCoroutine(MoveLerp(1, transform.position, 0.5f));
     }
 
+    IEnumerator MoveLerpOestrus(float speed, Vector3 startPos, Vector3 endPos)
+    {
+        float i = 0.0f;
+        float time = Vector3.Distance(startPos, endPos)/speed;
+        float rate = 1.0f/time;
+
+        while (i < 1.0f) {
+            i += Time.deltaTime * rate;
+            transform.position = Vector3.Lerp(startPos, endPos, i);
+            yield return null;
+        }
+
+        StartCoroutine(MoveLerpOestrus(1, transform.position, endPos));
+    }
 
 }
 
