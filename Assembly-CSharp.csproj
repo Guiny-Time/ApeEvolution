@@ -56,12 +56,12 @@
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizationSync.cs" />
      <Compile Include="Assets\Scripts\MainController.cs" />
      <Compile Include="Assets\Scripts\Ape.cs" />
+     <Compile Include="Assets\Scripts\GeneMgr.cs" />
      <Compile Include="Assets\Scripts\Utils\PriorityQueue.cs" />
+     <Compile Include="Assets\Scripts\ApeMgr.cs" />
      <Compile Include="Assets\Scripts\UI_MainMgr.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\Sheet.cs" />
      <Compile Include="Assets\Scripts\Utils\BaseMgr.cs" />
-     <Compile Include="Assets\Scripts\GeneMgr.cs" />
-     <Compile Include="Assets\Scripts\ApeMgr.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

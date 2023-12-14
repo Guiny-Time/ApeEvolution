@@ -174,23 +174,26 @@ public class Ape : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// 闲逛。孕妇、儿童、生病的人不会进入发情状态
+    /// </summary>
     public void Move_Normal()
     {
+        var position = transform.position;
         //漫无目的的乱动
-        StartCoroutine(MoveLerp(1,transform.position,0.5f));
+        StartCoroutine(MoveLerp(1,position,0.5f));
             
     }
     
+    /// <summary>
+    /// 求爱路线
+    /// </summary>
     public void Move_Oestrus()
     {
-        /*if (MainController.GetInstance().f_apes.Peek().gameObject)
-        {
-            print("Oestrus move");
-            //朝最佳配偶移动
-            StartCoroutine(MoveLerpOestrus(1,transform.position, MainController.GetInstance().f_apes.Peek().gameObject.transform.position));
-
-        }*/
-          
+        var position = transform.position;
+        StopAllCoroutines();
+        //朝最佳配偶移动
+        transform.position = Vector3.MoveTowards(position, ApeMgr.GetInstance().FindApeMost(this), 0.1f);
     }
 
     /// <summary>
@@ -225,20 +228,15 @@ public class Ape : MonoBehaviour
         StartCoroutine(MoveLerp(1, transform.position, 0.5f));
     }
 
-    IEnumerator MoveLerpOestrus(float speed, Vector3 startPos, Vector3 endPos)
+    /*IEnumerator MoveLerpOestrus(float speed, Vector3 startPos, Vector3 endPos)
     {
         float i = 0.0f;
-        float time = Vector3.Distance(startPos, endPos)/speed;
-        float rate = 1.0f/time;
 
-        while (i < 1.0f) {
-            i += Time.deltaTime * rate;
-            transform.position = Vector3.Lerp(startPos, endPos, i);
-            yield return null;
-        }
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, endPos, step);
 
         StartCoroutine(MoveLerpOestrus(1, transform.position, endPos));
-    }
+    }*/
 
 }
 

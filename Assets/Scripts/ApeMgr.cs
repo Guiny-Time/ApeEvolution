@@ -89,15 +89,24 @@ public class ApeMgr : BaseMgr<ApeMgr>
     /// 寻找最受欢迎的猩猩
     /// </summary>
     /// <param name="a"></param>
-    public GameObject FindApeMost(Ape a)
+    public Vector3 FindApeMost(Ape a)
     {
         if (a.gender == 0)
         {
-            return m_oes_apes[0].gameObject;
+            if (m_oes_apes == null)
+            {
+                return m_oes_apes[0].gameObject.transform.position;
+            }
+            else
+            {
+                return new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
+            }
         }
         else
         {
-            return f_oes_apes[0].gameObject;
+            return (f_oes_apes == null) 
+                ? f_oes_apes[0].gameObject.transform.position 
+                : new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);;
         }
     }
 }
