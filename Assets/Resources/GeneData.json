@@ -1,0 +1,21 @@
+{
+    "geneDatabase":
+  [
+    {
+        "name": "SEP-1",
+        "id": 0,
+        "immunity": 10,
+        "intelligence": 15,
+        "charisma": 12,
+        "mutation": 5
+    },
+    {
+        "name": "SEP-2",
+        "id": 1,
+        "immunity": 14,
+        "intelligence": 13,
+        "charisma": 10,
+        "mutation": 7
+    }
+  ]
+}
