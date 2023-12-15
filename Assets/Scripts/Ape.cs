@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -110,22 +108,23 @@ public class Ape : MonoBehaviour
     
     
     //
-    // --- EVENT PARAMS --- //
+    // --- OBJECT PARAMS --- //
     //
-    
+
+    /// <summary>
+    /// 贴图颜色与猩猩性别相关<br></br>
+    /// male: FFA700<br></br>
+    /// female: F8495E
+    /// </summary>
+    [Header("Object Parameters")]
+    public SpriteRenderer genderColor;
     
     /// <summary>
-    /// 是否处于发情期。母猩猩性成熟且未怀孕时处于发情期；公猩猩性成熟后一直处于发情期
+    /// 猩猩大小与年龄相关<br></br>
+    /// 越老越大
     /// </summary>
-    [Header("Event Parameters")]
-    [SerializeField] private bool inOestrus;
-
-
-    private void Start()
-    {
-        // inOestrus = (sexualMaturity && !pregnant);
-        // ApeMgr.GetInstance().AddApe(this, overall_attractiveness_point);
-    }
+    public Transform ageSize;
+    
 
     private void Update()
     {
@@ -148,6 +147,11 @@ public class Ape : MonoBehaviour
         ill = false;                    // 初始未生病
         pregnant = false;               // 初始未怀孕
         genes = GeneMgr.GetInstance().GenerateGeneList(4);  // 初始基因组
+        ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
+        ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
+        genderColor.color = (gender == 0) ? maleColor : femaleColor;
+        ageSize.localScale = new Vector3(0.5f + (age-1) * 0.005f,0.5f + (age-1)*0.005f,0.5f + (age-1)*0.005f);
+        
         foreach (var g in genes)
         {
             overall_attractiveness_point += ((g.immunity + health + g.charisma) / age);
@@ -238,15 +242,6 @@ public class Ape : MonoBehaviour
         StartCoroutine(MoveLerp(1, transform.position, 0.5f));
     }
 
-    /*IEnumerator MoveLerpOestrus(float speed, Vector3 startPos, Vector3 endPos)
-    {
-        float i = 0.0f;
-
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, endPos, step);
-
-        StartCoroutine(MoveLerpOestrus(1, transform.position, endPos));
-    }*/
 
 }
 
