@@ -2,20 +2,252 @@
     "geneDatabase":
   [
     {
-        "name": "SEP-1",
+        "name": "CCR5",
         "id": 0,
-        "immunity": 10,
+        "immunity": 80,
         "intelligence": 15,
         "charisma": 12,
         "mutation": 5
     },
     {
-        "name": "SEP-2",
+        "name": "HBB",
         "id": 1,
-        "immunity": 14,
+        "immunity": 94,
         "intelligence": 13,
         "charisma": 10,
         "mutation": 7
+    },
+    {
+        "name": "PCSK9",
+        "id": 2,
+        "immunity": 54,
+        "intelligence": 3,
+        "charisma": 0,
+        "mutation": 6
+    },
+    {
+        "name": "EPAS1",
+        "id": 3,
+        "immunity": 70,
+        "intelligence": 13,
+        "charisma": 10,
+        "mutation": 10
+    },
+    {
+        "name": "G127V",
+        "id": 4,
+        "immunity": 80,
+        "intelligence": 3,
+        "charisma": 23,
+        "mutation": 2
+    },
+    {
+        "name": "Rh-null",
+        "id": 5,
+        "immunity": 100,
+        "intelligence": 3,
+        "charisma": 21,
+        "mutation": 0
+    },
+    {
+        "name": "SOST",
+        "id": 6,
+        "immunity": 98,
+        "intelligence": 1,
+        "charisma": 45,
+        "mutation": 6
+    },
+    {
+        "name": "LRP5",
+        "id": 7,
+        "immunity": 94,
+        "intelligence": 0,
+        "charisma": 60,
+        "mutation": 20
+    },
+    {
+        "name": "DEC2",
+        "id": 8,
+        "immunity": 56,
+        "intelligence": 33,
+        "charisma": 0,
+        "mutation": 29
+    },
+    {
+        "name": "EDAR",
+        "id": 9,
+        "immunity": 40,
+        "intelligence": 13,
+        "charisma": 90,
+        "mutation": 19
+    },
+    {
+        "name": "MC1R",
+        "id": 10,
+        "immunity": 4,
+        "intelligence": 9,
+        "charisma": 79,
+        "mutation": 44
+    },
+    {
+        "name": "SLC24A5",
+        "id": 11,
+        "immunity": 27,
+        "intelligence": 33,
+        "charisma": 90,
+        "mutation": 70
+    },
+    {
+        "name": "SLC24A2",
+        "id": 12,
+        "immunity": 25,
+        "intelligence": 23,
+        "charisma": 87,
+        "mutation": 55
+    },
+    {
+        "name": "OCA2",
+        "id": 13,
+        "immunity": 2,
+        "intelligence": 11,
+        "charisma": 99,
+        "mutation": 50
+    },
+    {
+        "name": "M1",
+        "id": 14,
+        "immunity": 0,
+        "intelligence": 95,
+        "charisma": 5,
+        "mutation": 33
+    },
+    {
+        "name": "M3",
+        "id": 15,
+        "immunity": 4,
+        "intelligence": 99,
+        "charisma": 0,
+        "mutation": 41
+    },
+    {
+        "name": "HMGA2",
+        "id": 16,
+        "immunity": 1,
+        "intelligence": 87,
+        "charisma": 10,
+        "mutation": 22
+    },
+    {
+        "name": "TESC",
+        "id": 17,
+        "immunity": 2,
+        "intelligence": 93,
+        "charisma": 0,
+        "mutation": 11
+    },
+    {
+        "name": "APOE",
+        "id": 18,
+        "immunity": 0,
+        "intelligence": 0,
+        "charisma": 0,
+        "mutation": 30
+    },
+    {
+        "name": "BRCA1",
+        "id": 19,
+        "immunity": 0,
+        "intelligence": 3,
+        "charisma": 0,
+        "mutation": 15
+    },
+    {
+        "name": "CFTR",
+        "id": 20,
+        "immunity": 0,
+        "intelligence": 0,
+        "charisma": 10,
+        "mutation": 16
+    },
+    {
+        "name": "BRCA2",
+        "id": 21,
+        "immunity": 0,
+        "intelligence": 3,
+        "charisma": 0,
+        "mutation": 71
+    },
+    {
+        "name": "ABCC9",
+        "id": 22,
+        "immunity": 23,
+        "intelligence": 53,
+        "charisma": 3,
+        "mutation": 20
+    },
+    {
+        "name": "MAOA-3R",
+        "id": 23,
+        "immunity": 58,
+        "intelligence": 0,
+        "charisma": 96,
+        "mutation": 7
+    },
+    {
+        "name": "ABCC11",
+        "id": 24,
+        "immunity": 12,
+        "intelligence": 1,
+        "charisma": 1,
+        "mutation": 6
+    },
+    {
+        "name": "NOSLAP",
+        "id": 25,
+        "immunity": 0,
+        "intelligence": 0,
+        "charisma": 2,
+        "mutation": 33
+    },
+    {
+        "name": "FOXO3A",
+        "id": 26,
+        "immunity": 100,
+        "intelligence": 23,
+        "charisma": 20,
+        "mutation": 42
+    },
+    {
+        "name": "KSR2",
+        "id": 27,
+        "immunity": 20,
+        "intelligence": 5,
+        "charisma": 0,
+        "mutation": 12
+    },
+    {
+        "name": "ACE",
+        "id": 28,
+        "immunity": 73,
+        "intelligence": 5,
+        "charisma": 49,
+        "mutation": 22
+    },
+    {
+        "name": "ACTN3",
+        "id": 29,
+        "immunity": 80,
+        "intelligence": 2,
+        "charisma": 53,
+        "mutation": 31
+    },
+    {
+        "name": "TAS2R38",
+        "id": 30,
+        "immunity": 13,
+        "intelligence": 27,
+        "charisma": 3,
+        "mutation": 2
     }
   ]
 }

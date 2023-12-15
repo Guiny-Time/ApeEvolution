@@ -16,7 +16,7 @@ public class ApeMgr : BaseMgr<ApeMgr>
     public List<Ape> m_oes_apes = new List<Ape>();
 
 
-    public void AddApe(Ape a, int mark)
+    public void AddApe(Ape a)
     {
         // 加入总列表
         apes.Add(a);
@@ -24,7 +24,7 @@ public class ApeMgr : BaseMgr<ApeMgr>
         // 处于发情期则加入求偶列表
         if (a.InOestrus())
         {
-            AddOesApe(a,mark);
+            AddOesApe(a);
         }
     }
 
@@ -35,13 +35,12 @@ public class ApeMgr : BaseMgr<ApeMgr>
     /// <param name="mark"></param>
     // todo: 世界时钟建立后，记得在ape成年时将其加入求偶列表
     // todo: 另外，在母猩猩生完之后也可以再加入求偶列表
-    public void AddOesApe(Ape a, int mark)
+    public void AddOesApe(Ape a)
     {
         if (a.gender == 0)
         {
             f_oes_apes.Add(a);
             f_oes_apes.Sort((x, y) =>  y.overall_attractiveness_point.CompareTo(x.overall_attractiveness_point));
-            print(f_oes_apes[0].overall_attractiveness_point);
         }
         else
         {

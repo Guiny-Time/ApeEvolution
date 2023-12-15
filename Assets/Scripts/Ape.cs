@@ -69,7 +69,7 @@ public class Ape : MonoBehaviour
     /// 通过魅力(C)、免疫力(I)、健康指数(H)、年龄(A)综合计算得到<br></br>
     /// formula:(H+I)*C/A
     /// </summary>
-    public int overall_attractiveness_point;
+    public float overall_attractiveness_point;
 
 
     //
@@ -102,7 +102,11 @@ public class Ape : MonoBehaviour
     /// </summary>
     [SerializeField]private float charisma;
 
-    // protected List<Gene> gene_text;
+    /// <summary>
+    /// 猩猩个体持有的基因列表<br></br>
+    /// gene list that this ape has.
+    /// </summary>
+    protected List<Gene> genes = new List<Gene>();
     
     
     //
@@ -137,15 +141,21 @@ public class Ape : MonoBehaviour
 
     public void InitApe()
     {
-        age = Random.Range(5, 25);  // 随机生成5~24岁的猩猩
-        sexualMaturity = (age >= 16);
-        gender = Random.Range(0, 2);
-        health = 100.0f;
-        ill = false;
-        pregnant = false;
-        overall_attractiveness_point = Random.Range(0, 100);
-        ApeMgr.GetInstance().AddApe(this, overall_attractiveness_point);
-        // 基因
+        age = Random.Range(5, 25);      // 随机生成5~24岁的猩猩
+        sexualMaturity = (age >= 16);   // 判断是否性成熟
+        gender = Random.Range(0, 2);    // 随机性别
+        health = 100.0f;                // 初始健康100
+        ill = false;                    // 初始未生病
+        pregnant = false;               // 初始未怀孕
+        genes = GeneMgr.GetInstance().GenerateGeneList(4);  // 初始基因组
+        foreach (var g in genes)
+        {
+            overall_attractiveness_point += ((g.immunity + health + g.charisma) / age);
+            // print(g.name + " score: " + overall_attractiveness_point);
+        }
+
+        ApeMgr.GetInstance().AddApe(this);
+        
     }
 
     /// <summary>
