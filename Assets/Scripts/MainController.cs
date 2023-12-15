@@ -41,7 +41,6 @@ public class MainController : BaseMgr<MainController>
                 o.transform.position = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
                 o.transform.parent = _apeContainer.transform;
                 o.GetComponent<Ape>().InitApe();
-                o.GetComponent<Ape>().NewGene();
                 // _apeMgr.AddApe(o, 100);
                 // testList.Add(o.gameObject);
                 

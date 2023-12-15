@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -124,7 +125,13 @@ public class Ape : MonoBehaviour
     /// 越老越大
     /// </summary>
     public Transform ageSize;
-    
+
+    private bool hasMatted; // 是否已经交配
+
+    private void Start()
+    {
+        hasMatted = false;
+    }
 
     private void Update()
     {
@@ -146,19 +153,15 @@ public class Ape : MonoBehaviour
         health = 100.0f;                // 初始健康100
         ill = false;                    // 初始未生病
         pregnant = false;               // 初始未怀孕
-        genes = GeneMgr.GetInstance().GenerateGeneList(4);  // 初始基因组
+        
         ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
         ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
-        genderColor.color = (gender == 0) ? maleColor : femaleColor;
-        ageSize.localScale = new Vector3(0.5f + (age-1) * 0.005f,0.5f + (age-1)*0.005f,0.5f + (age-1)*0.005f);
-        
-        foreach (var g in genes)
-        {
-            overall_attractiveness_point += ((g.immunity + health + g.charisma) / age);
-            // print(g.name + " score: " + overall_attractiveness_point);
-        }
+        genderColor.color = (gender == 0) ? maleColor : femaleColor;    // 性别特征（颜色）
+        ageSize.localScale = new Vector3(0.5f + (age-1) * 0.005f,0.5f + (age-1)*0.005f,0.5f + (age-1)*0.005f);  // 年龄特征（大小）
 
-        ApeMgr.GetInstance().AddApe(this);
+        CalculateGeneParams(4);         // 计算综合得分
+
+        ApeMgr.GetInstance().AddApe(this);  // 加入猩猩管理器
         
     }
 
@@ -173,19 +176,15 @@ public class Ape : MonoBehaviour
     }
 
     /// <summary>
-    /// 第一代apes的基因分配 (新游戏时new的)
-    /// </summary>
-    public void NewGene()
-    {
-        print("This is new gene func");
-    }
-
-    /// <summary>
     /// 计算个体基因积分 calculate the gene parameters based on gene
     /// </summary>
-    public void CalculateGeneParams()
+    public void CalculateGeneParams(int geneNum)
     {
-        
+        genes = GeneMgr.GetInstance().GenerateGeneList(geneNum);  // 初始基因组
+        foreach (var g in genes)
+        {
+            overall_attractiveness_point += ((g.immunity + health + g.charisma) / age);
+        }
     }
 
     /// <summary>
@@ -217,6 +216,24 @@ public class Ape : MonoBehaviour
     public bool InOestrus()
     {
         return (sexualMaturity && !pregnant);
+    }
+
+    /// <summary>
+    /// 生育后代
+    /// </summary>
+    /// <param name="other"></param>
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        Ape ape = other.gameObject.GetComponent<Ape>();
+        if ((ape.gender != this.gender) && ape.InOestrus() && !hasMatted) //对方是异性，并且处于发情期
+        {
+            if (gender == 1)    // 如果该个体为母猩猩，则进入怀孕周期
+            {
+                pregnant = true;
+                hasMatted = true;
+                // todo: 在怀孕周期结束、子代出生时，记得把trigger重置为false
+            }
+        }
     }
 
     IEnumerator MoveLerp(float speed, Vector3 startPos, float drunkenness)
