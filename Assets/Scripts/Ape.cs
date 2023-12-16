@@ -131,7 +131,8 @@ public class Ape : MonoBehaviour
     
     private bool hasMatted; // 是否已经交配
     private Ape lover;
-    private float p_startTime;    //计时器
+    private float p_startTime;      //怀孕周期计时器
+    private float g_startTime;      // 成长周期计时器
 
     private ApeMgr _apeMgr;
     private GeneMgr _geneMgr;
@@ -145,6 +146,7 @@ public class Ape : MonoBehaviour
 
     private void Update()
     {
+        GrowthCycle();
         if (sexualMaturity && !pregnant)
         {
             Move_Oestrus();
@@ -167,6 +169,7 @@ public class Ape : MonoBehaviour
     public void InitApe()
     {
         age = Random.Range(5, 25);      // 随机生成5~24岁的猩猩
+        g_startTime = Time.time - (age * 3.6f);
         sexualMaturity = (age >= 16);   // 判断是否性成熟
         gender = Random.Range(0, 2);    // 随机性别
         health = 100.0f;                // 初始健康100
@@ -269,6 +272,27 @@ public class Ape : MonoBehaviour
     }
 
     /// <summary>
+    /// 生长周期
+    /// 
+    /// </summary>
+    public void GrowthCycle()
+    {
+        age = (Time.time - g_startTime) / 3.6f;
+        if (Time.time - g_startTime >= 58.44f)
+        {
+            // 猩猩性成熟
+            sexualMaturity = true;
+        }
+        if (Time.time - g_startTime >= 142.44f)
+        {
+            // 猩猩死亡
+            Death();
+            StopAllCoroutines();
+            PoolMgr.GetInstance().PushObj(this.gameObject); // 回到对象池
+        }
+    }
+
+    /// <summary>
     /// 怀孕周期，2.43秒后产生新的猩猩
     /// </summary>
     public void PregnancyCycle()
@@ -283,6 +307,30 @@ public class Ape : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 猩猩死亡，重置一切变量，移除出管理器
+    /// </summary>
+    public void Death()
+    {
+        _apeMgr.RemoveApe(this);
+        age = 0;
+        gender = Random.Range(0, 2);
+        health = 100.0f;
+        ill = false;
+        pregnant = false;
+        sexualMaturity = false;
+        genes.Clear();
+        immunity = 0;
+        intelligence = 0;
+        charisma = 0;
+        mutation = 0;
+        overall_attractiveness_point = 0;
+        hasMatted = false;
+        lover = null;
+        p_startTime = 0;
+        g_startTime = 0;
+    }
+    
     /// <summary>
     /// 当异性apes接触且处于发情期时，生育后代
     /// </summary>
@@ -326,7 +374,4 @@ public class Ape : MonoBehaviour
         StartCoroutine(MoveLerp(1, transform.position, 0.5f));
     }
 
-
 }
-
-
