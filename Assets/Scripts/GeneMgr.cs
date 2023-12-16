@@ -12,11 +12,6 @@ public class GeneMgr : BaseMgr<GeneMgr>
     void Start()
     {
         geneDBJson = JsonUtility.FromJson<GeneDataBase>(geneFile.text);
-
-        /*foreach (Gene employee in geneDBJson.geneDatabase)
-        {
-            Debug.Log("Found gene: " + employee.name + " " + employee.id);
-        }*/
     }
 
     // Update is called once per frame
@@ -34,16 +29,58 @@ public class GeneMgr : BaseMgr<GeneMgr>
     {
         List<Gene> result = new List<Gene>();
         geneDBJson = JsonUtility.FromJson<GeneDataBase>(geneFile.text);
-        for (int i = 0; i < requireNum; i++)
+        while (result.Count < requireNum)
         {
             int index = Random.Range(0, geneDBJson.geneDatabase.Length-1);
-            result.Add(geneDBJson.geneDatabase[index]);
+            var newGene = geneDBJson.geneDatabase[index];
+            if (!result.Contains(newGene))
+            {
+                result.Add(newGene);
+            }
         }
 
         return result;
     }
-    
-    
+
+    /// <summary>
+    /// 子代出生时生成的基因列表
+    /// </summary>
+    /// <param name="father">父亲</param>
+    /// <param name="mother">母亲</param>
+    /// <param name="requireNum">需要的基因个数</param>
+    /// <returns></returns>
+    public List<Gene> GenerateGeneListFromParent(Ape father, Ape mother, int requireNum)
+    {
+        List<Gene> result = new List<Gene>();
+        geneDBJson = JsonUtility.FromJson<GeneDataBase>(geneFile.text);
+        float mutation = (father.mutation + mother.mutation) / 2;
+
+        while (result.Count < requireNum)
+        {
+            float isMutation = Random.Range(0, requireNum * 100 + 1);
+            Gene nextGene;
+            if (isMutation < mutation)  // 发生1个突变
+            {
+                int index = Random.Range(0, geneDBJson.geneDatabase.Length-1);
+                nextGene = geneDBJson.geneDatabase[index];
+            }
+            else
+            {
+                var index = Random.Range(0, requireNum-1);
+                var fom = Random.Range(0, 2);
+                nextGene = (fom == 0) ? father.genes[index] : mother.genes[index];
+            }
+            
+            if (!result.Contains(nextGene))
+            {
+                result.Add(nextGene);
+            }
+        }
+
+        return result;
+    }
+
+
 }
 
 [System.Serializable]

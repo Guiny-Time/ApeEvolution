@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class MainController : BaseMgr<MainController>
 {
-    private GameObject _apeContainer;
+    public GameObject _apeContainer;
     private ApeMgr _apeMgr;
 
     private List<GameObject> testList;
@@ -33,7 +33,7 @@ public class MainController : BaseMgr<MainController>
     private void GenerateNewGame()
     {
         // 初始族群的成员数量
-        int ape_number = Random.Range(2, 10);
+        int ape_number = Random.Range(4, 10);
         for (int i = 0; i < ape_number; i++)
         {
             PoolMgr.GetInstance().GetObj("Ape",  o =>
@@ -41,12 +41,8 @@ public class MainController : BaseMgr<MainController>
                 o.transform.position = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
                 o.transform.parent = _apeContainer.transform;
                 o.GetComponent<Ape>().InitApe();
-                // _apeMgr.AddApe(o, 100);
-                // testList.Add(o.gameObject);
-                
-                
             });
         }
-        
     }
+    
 }

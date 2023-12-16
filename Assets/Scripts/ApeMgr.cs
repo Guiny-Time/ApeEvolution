@@ -15,6 +15,9 @@ public class ApeMgr : BaseMgr<ApeMgr>
     public List<Ape> f_oes_apes = new List<Ape>();
     public List<Ape> m_oes_apes = new List<Ape>();
 
+    // 阶段性基因，指的是当前阶段猩猩个体携带的基因数，为4，8，16，32（遵循2^(n+1)，32时为人类，到这一阶段就胜利了，所以不会显示）
+    // todo: 在评分达到下一阶段时更新该数值
+    public int geneStage = 4;
 
     public void AddApe(Ape a)
     {

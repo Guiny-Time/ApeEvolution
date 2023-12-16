@@ -24,8 +24,8 @@ public class Ape : MonoBehaviour
     /// in third stage, max age would be 55<br></br>
     /// in fourth stage, max age would be 70
     /// </summary>
-    [Header("Basic Parameters")]
-    [SerializeField]private int age;
+    [Header("- Basic Parameters -")]
+    [SerializeField]private float age;
 
     /// <summary>
     /// 性别 gender<br></br>
@@ -79,7 +79,7 @@ public class Ape : MonoBehaviour
     /// <summary>
     /// 免疫力P in illness, and P to be healed after ill
     /// </summary>
-    [Header("Gene Parameters")]
+    [Header("- Gene Parameters -")]
     [SerializeField]private float immunity;
 
     /// <summary>
@@ -92,7 +92,7 @@ public class Ape : MonoBehaviour
     /// 变异率P in gene mutation
     /// mutation can be good or bad
     /// </summary>
-    [SerializeField]private float mutation;
+    public float mutation;
 
     /// <summary>
     /// 魅力Charisma, it means, beautiful/handsome or not.<br></br>
@@ -105,7 +105,7 @@ public class Ape : MonoBehaviour
     /// 猩猩个体持有的基因列表<br></br>
     /// gene list that this ape has.
     /// </summary>
-    protected List<Gene> genes = new List<Gene>();
+    public List<Gene> genes = new List<Gene>();
     
     
     //
@@ -117,7 +117,7 @@ public class Ape : MonoBehaviour
     /// male: FFA700<br></br>
     /// female: F8495E
     /// </summary>
-    [Header("Object Parameters")]
+    [Header("- Object Parameters -")]
     public SpriteRenderer genderColor;
     
     /// <summary>
@@ -126,11 +126,21 @@ public class Ape : MonoBehaviour
     /// </summary>
     public Transform ageSize;
 
+    
+    /* --- EVENT PARAMS --- */
+    
     private bool hasMatted; // 是否已经交配
+    private Ape lover;
+    private float p_startTime;    //计时器
 
-    private void Start()
+    private ApeMgr _apeMgr;
+    private GeneMgr _geneMgr;
+
+    private void Awake()
     {
         hasMatted = false;
+        _apeMgr = ApeMgr.GetInstance();
+        _geneMgr = GeneMgr.GetInstance();
     }
 
     private void Update()
@@ -138,10 +148,19 @@ public class Ape : MonoBehaviour
         if (sexualMaturity && !pregnant)
         {
             Move_Oestrus();
+            ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
+            ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
+            genderColor.color = (gender == 0) ? maleColor : femaleColor;
         }
         else
         {
             Move_Normal();
+        }
+
+        if (pregnant)
+        {
+            PregnancyCycle();
+            genderColor.color = Color.cyan;
         }
     }
 
@@ -159,10 +178,29 @@ public class Ape : MonoBehaviour
         genderColor.color = (gender == 0) ? maleColor : femaleColor;    // 性别特征（颜色）
         ageSize.localScale = new Vector3(0.5f + (age-1) * 0.005f,0.5f + (age-1)*0.005f,0.5f + (age-1)*0.005f);  // 年龄特征（大小）
 
-        CalculateGeneParams(4);         // 计算综合得分
+        genes = GeneMgr.GetInstance().GenerateGeneList(_apeMgr.geneStage);  // 初始基因组
+        CalculateGeneParams();         // 计算综合得分
 
-        ApeMgr.GetInstance().AddApe(this);  // 加入猩猩管理器
+        _apeMgr.AddApe(this);  // 加入猩猩管理器
+    }
+
+    /// <summary>
+    /// 初始化新生儿数据
+    /// </summary>
+    public void InitBabyData()
+    {
+        age = 0;
+        gender = Random.Range(0, 2);
+        health = 100.0f;
+        ill = false;
+        pregnant = false;
         
+        ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
+        ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
+        genderColor.color = (gender == 0) ? maleColor : femaleColor;
+        ageSize.localScale = new Vector3(0.5f,0.5f,0.5f);
+
+        _apeMgr.AddApe(this);
     }
 
     /// <summary>
@@ -170,22 +208,34 @@ public class Ape : MonoBehaviour
     /// Obtaining a gene from parents<br></br>
     /// randomly selecting a gene to mutate based on the mutation rate of the parents
     /// </summary>
-    public void NewGene(Ape father, Ape mother)
+    public void InstanceNewBabyApe()
     {
-        
+        PoolMgr.GetInstance().GetObj("Ape",  o =>
+        {
+            o.transform.position = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
+            o.transform.parent = MainController.GetInstance()._apeContainer.transform;
+            o.GetComponent<Ape>().InitBabyData();
+            o.GetComponent<Ape>().genes = _geneMgr.GenerateGeneListFromParent(this, lover, _apeMgr.geneStage);// 新生儿基因组
+            o.GetComponent<Ape>().CalculateGeneParams();
+        });
     }
 
     /// <summary>
     /// 计算个体基因积分 calculate the gene parameters based on gene
     /// </summary>
-    public void CalculateGeneParams(int geneNum)
+    public void CalculateGeneParams()
     {
-        genes = GeneMgr.GetInstance().GenerateGeneList(geneNum);  // 初始基因组
         foreach (var g in genes)
         {
+            immunity += g.immunity;
+            intelligence += g.intelligence;
+            charisma += g.charisma;
+            mutation += g.mutation;
+            //todo: 在后续阶段，智力也会作为影响综合吸引指数的一个因素
             overall_attractiveness_point += ((g.immunity + health + g.charisma) / age);
         }
     }
+    
 
     /// <summary>
     /// 闲逛。孕妇、儿童、生病的人不会进入发情状态
@@ -206,7 +256,7 @@ public class Ape : MonoBehaviour
         var position = transform.position;
         StopAllCoroutines();
         //朝最佳配偶移动
-        transform.position = Vector3.MoveTowards(position, ApeMgr.GetInstance().FindApeMost(this), 0.1f);
+        transform.position = Vector3.MoveTowards(position, _apeMgr.FindApeMost(this), 0.1f);
     }
 
     /// <summary>
@@ -219,7 +269,22 @@ public class Ape : MonoBehaviour
     }
 
     /// <summary>
-    /// 生育后代
+    /// 怀孕周期，2.43秒后产生新的猩猩
+    /// </summary>
+    public void PregnancyCycle()
+    {
+        if (Time.time - p_startTime >= 2.43f)
+        {
+            // 诞下子代
+            InstanceNewBabyApe();
+            _apeMgr.AddOesApe(this);
+            pregnant = false;
+            hasMatted = false;
+        }
+    }
+
+    /// <summary>
+    /// 当异性apes接触且处于发情期时，生育后代
     /// </summary>
     /// <param name="other"></param>
     public void OnTriggerEnter2D(Collider2D other)
@@ -229,9 +294,11 @@ public class Ape : MonoBehaviour
         {
             if (gender == 1)    // 如果该个体为母猩猩，则进入怀孕周期
             {
+                _apeMgr.RemoveOesApe(this);
+                lover = other.gameObject.GetComponent<Ape>();
+                p_startTime = Time.time;
                 pregnant = true;
                 hasMatted = true;
-                // todo: 在怀孕周期结束、子代出生时，记得把trigger重置为false
             }
         }
     }
