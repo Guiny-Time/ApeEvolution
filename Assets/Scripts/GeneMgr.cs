@@ -66,7 +66,7 @@ public class GeneMgr : BaseMgr<GeneMgr>
             }
             else
             {
-                var index = Random.Range(0, requireNum-1);
+                var index = Random.Range(0, requireNum);
                 var fom = Random.Range(0, 2);
                 nextGene = (fom == 0) ? father.genes[index] : mother.genes[index];
             }

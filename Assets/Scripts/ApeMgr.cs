@@ -36,8 +36,6 @@ public class ApeMgr : BaseMgr<ApeMgr>
     /// </summary>
     /// <param name="a"></param>
     /// <param name="mark"></param>
-    // todo: 世界时钟建立后，记得在ape成年时将其加入求偶列表
-    // todo: 另外，在母猩猩生完之后也可以再加入求偶列表
     public void AddOesApe(Ape a)
     {
         if (a.gender == 0)
@@ -110,5 +108,15 @@ public class ApeMgr : BaseMgr<ApeMgr>
                 ? f_oes_apes[0].gameObject.transform.position 
                 : new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);;
         }
+    }
+
+    /// <summary>
+    /// 生存压力是否到达巅峰
+    /// 若是，则所有猩猩暂停繁育
+    /// </summary>
+    /// <returns></returns>
+    public bool ExistentialPressure()
+    {
+        return (apes.Count >= 65);
     }
 }

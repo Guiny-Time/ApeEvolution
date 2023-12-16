@@ -8,15 +8,10 @@ using Random = UnityEngine.Random;
 public class MainController : BaseMgr<MainController>
 {
     public GameObject _apeContainer;
-    private ApeMgr _apeMgr;
-
-    private List<GameObject> testList;
 
     // Start is called before the first frame update
     void Start()
     {
-        _apeContainer = GameObject.Find("Apes");
-        _apeMgr = ApeMgr.GetInstance();
         GenerateNewGame();
     }
 

@@ -142,21 +142,26 @@ public class Ape : MonoBehaviour
         hasMatted = false;
         _apeMgr = ApeMgr.GetInstance();
         _geneMgr = GeneMgr.GetInstance();
+        
+        ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
+        ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
+        genderColor.color = (gender == 0) ? maleColor : femaleColor;
     }
 
     private void Update()
     {
         GrowthCycle();
-        if (sexualMaturity && !pregnant)
+        if (sexualMaturity && !pregnant && !_apeMgr.ExistentialPressure())
         {
             Move_Oestrus();
-            ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
-            ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
-            genderColor.color = (gender == 0) ? maleColor : femaleColor;
         }
         else
         {
-            Move_Normal();
+            if (this.gameObject.active)
+            {
+                Move_Normal();
+            }
+            
         }
 
         if (pregnant)
@@ -193,6 +198,7 @@ public class Ape : MonoBehaviour
     public void InitBabyData()
     {
         age = 0;
+        g_startTime = Time.time;
         gender = Random.Range(0, 2);
         health = 100.0f;
         ill = false;
@@ -247,8 +253,14 @@ public class Ape : MonoBehaviour
     {
         var position = transform.position;
         //漫无目的的乱动
-        StartCoroutine(MoveLerp(1,position,0.5f));
-            
+        try
+        {
+            StartCoroutine(MoveLerp(1,position,0.5f));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
     
     /// <summary>
@@ -278,10 +290,11 @@ public class Ape : MonoBehaviour
     public void GrowthCycle()
     {
         age = (Time.time - g_startTime) / 3.6f;
-        if (Time.time - g_startTime >= 58.44f)
+        if (Time.time - g_startTime >= 58.44f && !sexualMaturity)
         {
             // 猩猩性成熟
             sexualMaturity = true;
+            _apeMgr.AddOesApe(this);
         }
         if (Time.time - g_startTime >= 142.44f)
         {
@@ -338,7 +351,7 @@ public class Ape : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         Ape ape = other.gameObject.GetComponent<Ape>();
-        if ((ape.gender != this.gender) && ape.InOestrus() && !hasMatted) //对方是异性，并且处于发情期
+        if ((ape.gender != this.gender) && ape.InOestrus() && !hasMatted && !_apeMgr.ExistentialPressure()) //对方是异性、处于发情期且当前暂无生存压力
         {
             if (gender == 1)    // 如果该个体为母猩猩，则进入怀孕周期
             {
