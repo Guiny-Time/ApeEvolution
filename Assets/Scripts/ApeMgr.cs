@@ -119,4 +119,21 @@ public class ApeMgr : BaseMgr<ApeMgr>
     {
         return (apes.Count >= 65);
     }
+
+    public int CalAllGenePoints()
+    {
+        int result = 0;
+        foreach (var a in apes)
+        {
+            foreach (var g in a.genes)
+            {
+                result += g.immunity;
+                result += g.charisma;
+                result += g.intelligence;
+            }
+            
+        }
+
+        return result;
+    }
 }

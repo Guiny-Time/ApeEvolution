@@ -36,5 +36,6 @@ public class UI_MainMgr : MonoBehaviour
             > 20 => Resources.Load<Sprite>("emo2"),
             _ => Resources.Load<Sprite>("emo1")
         };
+        genePoints.value = _apeMgr.CalAllGenePoints();
     }
 }
