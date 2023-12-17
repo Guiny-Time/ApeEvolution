@@ -21,8 +21,8 @@
         "name": "PCSK9",
         "id": 2,
         "immunity": 54,
-        "intelligence": 3,
-        "charisma": 0,
+        "intelligence": 37,
+        "charisma": 40,
         "mutation": 6
     },
     {
@@ -42,12 +42,12 @@
         "mutation": 2
     },
     {
-        "name": "Rh-null",
+        "name": "NOSLAP",
         "id": 5,
-        "immunity": 100,
-        "intelligence": 3,
-        "charisma": 21,
-        "mutation": 0
+        "immunity": 0,
+        "intelligence": 0,
+        "charisma": 2,
+        "mutation": 33
     },
     {
         "name": "SOST",
@@ -62,7 +62,7 @@
         "id": 7,
         "immunity": 94,
         "intelligence": 0,
-        "charisma": 60,
+        "charisma": 20,
         "mutation": 20
     },
     {
@@ -74,12 +74,12 @@
         "mutation": 29
     },
     {
-        "name": "EDAR",
+        "name": "APOE",
         "id": 9,
-        "immunity": 40,
-        "intelligence": 13,
-        "charisma": 90,
-        "mutation": 19
+        "immunity": 0,
+        "intelligence": 0,
+        "charisma": 0,
+        "mutation": 30
     },
     {
         "name": "MC1R",
@@ -132,9 +132,9 @@
     {
         "name": "HMGA2",
         "id": 16,
-        "immunity": 1,
+        "immunity": 41,
         "intelligence": 87,
-        "charisma": 10,
+        "charisma": 60,
         "mutation": 22
     },
     {
@@ -146,12 +146,12 @@
         "mutation": 11
     },
     {
-        "name": "APOE",
+        "name": "EDAR",
         "id": 18,
-        "immunity": 0,
-        "intelligence": 0,
-        "charisma": 0,
-        "mutation": 30
+        "immunity": 70,
+        "intelligence": 33,
+        "charisma": 90,
+        "mutation": 19
     },
     {
         "name": "BRCA1",
@@ -188,8 +188,8 @@
     {
         "name": "MAOA-3R",
         "id": 23,
-        "immunity": 58,
-        "intelligence": 0,
+        "immunity": 78,
+        "intelligence": 30,
         "charisma": 96,
         "mutation": 7
     },
@@ -202,12 +202,12 @@
         "mutation": 6
     },
     {
-        "name": "NOSLAP",
+        "name": "Rh-null",
         "id": 25,
-        "immunity": 0,
-        "intelligence": 0,
-        "charisma": 2,
-        "mutation": 33
+        "immunity": 100,
+        "intelligence": 63,
+        "charisma": 21,
+        "mutation": 0
     },
     {
         "name": "FOXO3A",
@@ -220,9 +220,9 @@
     {
         "name": "KSR2",
         "id": 27,
-        "immunity": 20,
+        "immunity": 60,
         "intelligence": 5,
-        "charisma": 0,
+        "charisma": 30,
         "mutation": 12
     },
     {
@@ -244,9 +244,9 @@
     {
         "name": "TAS2R38",
         "id": 30,
-        "immunity": 13,
+        "immunity": 43,
         "intelligence": 27,
-        "charisma": 3,
+        "charisma": 33,
         "mutation": 2
     }
   ]

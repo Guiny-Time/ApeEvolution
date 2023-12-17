@@ -133,6 +133,7 @@ public class Ape : MonoBehaviour
     private Ape lover;
     private float p_startTime;      //怀孕周期计时器
     private float g_startTime;      // 成长周期计时器
+    private Vector3 target;         // normal move 目标
 
     private ApeMgr _apeMgr;
     private GeneMgr _geneMgr;
@@ -140,6 +141,8 @@ public class Ape : MonoBehaviour
     private void Awake()
     {
         hasMatted = false;
+        lover = null;
+        target = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
         _apeMgr = ApeMgr.GetInstance();
         _geneMgr = GeneMgr.GetInstance();
         
@@ -157,11 +160,7 @@ public class Ape : MonoBehaviour
         }
         else
         {
-            if (this.gameObject.active)
-            {
-                Move_Normal();
-            }
-            
+            Move_Normal();
         }
 
         if (pregnant)
@@ -221,7 +220,8 @@ public class Ape : MonoBehaviour
     {
         PoolMgr.GetInstance().GetObj("Ape",  o =>
         {
-            o.transform.position = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
+            var position = transform.position;
+            o.transform.position = new Vector3(position.x + Random.Range(-2, 2), position.y + Random.Range(-2, 2), 0);
             o.transform.parent = MainController.GetInstance()._apeContainer.transform;
             o.GetComponent<Ape>().InitBabyData();
             o.GetComponent<Ape>().genes = _geneMgr.GenerateGeneListFromParent(this, lover, _apeMgr.geneStage);// 新生儿基因组
@@ -251,16 +251,13 @@ public class Ape : MonoBehaviour
     /// </summary>
     public void Move_Normal()
     {
-        var position = transform.position;
-        //漫无目的的乱动
-        try
+        transform.position = Vector3.MoveTowards(transform.position, target, 0.005f);
+        // 漫无目的地乱动
+        if (transform.position == target)
         {
-            StartCoroutine(MoveLerp(1,position,0.5f));
+            target = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
+        
     }
     
     /// <summary>
@@ -271,7 +268,7 @@ public class Ape : MonoBehaviour
         var position = transform.position;
         StopAllCoroutines();
         //朝最佳配偶移动
-        transform.position = Vector3.MoveTowards(position, _apeMgr.FindApeMost(this), 0.1f);
+        transform.position = Vector3.MoveTowards(position, _apeMgr.FindApeMost(this), 0.05f);
     }
 
     /// <summary>
@@ -301,7 +298,7 @@ public class Ape : MonoBehaviour
             // 猩猩死亡
             Death();
             StopAllCoroutines();
-            PoolMgr.GetInstance().PushObj(this.gameObject); // 回到对象池
+            PoolMgr.GetInstance().PushObj("Ape", this.gameObject); // 回到对象池
         }
     }
 
@@ -310,10 +307,14 @@ public class Ape : MonoBehaviour
     /// </summary>
     public void PregnancyCycle()
     {
-        if (Time.time - p_startTime >= 2.43f)
+        if (Time.time - p_startTime >= 2.43f && !_apeMgr.ExistentialPressure())
         {
-            // 诞下子代
-            InstanceNewBabyApe();
+            if (!_apeMgr.ExistentialPressure()) //在生存压力大时，新生儿无法生存，或发生流产
+            {
+                // 诞下子代
+                InstanceNewBabyApe();
+            }
+           
             _apeMgr.AddOesApe(this);
             pregnant = false;
             hasMatted = false;
@@ -338,10 +339,10 @@ public class Ape : MonoBehaviour
         charisma = 0;
         mutation = 0;
         overall_attractiveness_point = 0;
-        hasMatted = false;
-        lover = null;
         p_startTime = 0;
         g_startTime = 0;
+        hasMatted = false;
+        lover = null;
     }
     
     /// <summary>
@@ -353,7 +354,7 @@ public class Ape : MonoBehaviour
         Ape ape = other.gameObject.GetComponent<Ape>();
         if ((ape.gender != this.gender) && ape.InOestrus() && !hasMatted && !_apeMgr.ExistentialPressure()) //对方是异性、处于发情期且当前暂无生存压力
         {
-            if (gender == 1)    // 如果该个体为母猩猩，则进入怀孕周期
+            if (gender == 1 && InOestrus())    // 如果该个体为母猩猩且性成熟，则进入怀孕周期
             {
                 _apeMgr.RemoveOesApe(this);
                 lover = other.gameObject.GetComponent<Ape>();
@@ -362,29 +363,6 @@ public class Ape : MonoBehaviour
                 hasMatted = true;
             }
         }
-    }
-
-    IEnumerator MoveLerp(float speed, Vector3 startPos, float drunkenness)
-    {
-        float i = 0.0f;
-        Vector3 endPos = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
-        float time = Vector3.Distance(startPos, endPos)/speed;
-        float rate = 1.0f/time;
-        Vector3 drunkenStep = endPos + new Vector3(Random.Range(-drunkenness, drunkenness), Random.Range(-drunkenness, drunkenness), 0);
-
-        float timer = 0.0f;
-        while (i < 1.0f) {
-            i += Time.deltaTime * rate;
-            timer += Time.deltaTime; 
-            if (timer >= 0.5f) {
-                drunkenStep = endPos + new Vector3(Random.Range(-drunkenness, drunkenness), Random.Range(-drunkenness, drunkenness), 0);
-                timer = 0.0f;
-            }
-            transform.position = Vector3.Lerp(startPos, drunkenStep, i);
-            yield return null;
-        }
-
-        StartCoroutine(MoveLerp(1, transform.position, 0.5f));
     }
 
 }

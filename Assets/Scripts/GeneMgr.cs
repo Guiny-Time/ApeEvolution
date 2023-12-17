@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Random = UnityEngine.Random;
 
 public class GeneMgr : BaseMgr<GeneMgr>
 {
@@ -51,9 +53,9 @@ public class GeneMgr : BaseMgr<GeneMgr>
     /// <returns></returns>
     public List<Gene> GenerateGeneListFromParent(Ape father, Ape mother, int requireNum)
     {
-        List<Gene> result = new List<Gene>();
+        var result = new List<Gene>();
         geneDBJson = JsonUtility.FromJson<GeneDataBase>(geneFile.text);
-        float mutation = (father.mutation + mother.mutation) / 2;
+        var mutation = (father.mutation + mother.mutation) / 2;
 
         while (result.Count < requireNum)
         {
@@ -61,22 +63,29 @@ public class GeneMgr : BaseMgr<GeneMgr>
             Gene nextGene;
             if (isMutation < mutation)  // 发生1个突变
             {
-                int index = Random.Range(0, geneDBJson.geneDatabase.Length-1);
+                var index = Random.Range(0, geneDBJson.geneDatabase.Length-1);
                 nextGene = geneDBJson.geneDatabase[index];
             }
             else
             {
-                var index = Random.Range(0, requireNum);
-                var fom = Random.Range(0, 2);
-                nextGene = (fom == 0) ? father.genes[index] : mother.genes[index];
+                if (mother.genes.Count!=0)
+                {
+                    var index = Random.Range(0, requireNum);
+                    var fom = Random.Range(0, 2);
+
+                    nextGene = (fom == 0) ? father.genes[index] : mother.genes[index];
+                }
+                else
+                {
+                    var index = Random.Range(0, requireNum);
+                    nextGene = father.genes[index];
+                }
             }
-            
             if (!result.Contains(nextGene))
             {
                 result.Add(nextGene);
             }
         }
-
         return result;
     }
 

@@ -15,25 +15,6 @@ public class PoolMgr : BaseMgr<PoolMgr>
     private GameObject poolObj;
 
     /// <summary>
-    /// 往外拿东西，含初始坐标
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public void GetObj(string name, Vector3 position, UnityAction<GameObject> callBack)
-    {
-        //有抽屉 并且抽屉里有东西
-        if (PoolDic.ContainsKey(name) && PoolDic[name].poolList.Count > 0)
-        {
-            if(callBack!=null) callBack(PoolDic[name].GetObj(position));
-            else PoolDic[name].GetObj(position);
-        }
-        else//通过异步加载资源 创建对象给外部用
-        {
-            ResMgr.GetInstance().Load<GameObject>(name);
-        }
-    }
-
-    /// <summary>
     /// 往外拿东西，不含初始坐标
     /// </summary>
     /// <param name="name"></param>
@@ -51,11 +32,6 @@ public class PoolMgr : BaseMgr<PoolMgr>
             callBack(ResMgr.GetInstance().Load<GameObject>(name));
         }
 
-    }
-
-    public void PushObj(GameObject obj)
-    {
-        PushObj(obj.name,obj);
     }
 
     /// <summary>

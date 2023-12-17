@@ -117,7 +117,7 @@ public class ApeMgr : BaseMgr<ApeMgr>
     /// <returns></returns>
     public bool ExistentialPressure()
     {
-        return (apes.Count >= 65);
+        return (apes.Count >= 101);
     }
 
     public int CalAllGenePoints()
