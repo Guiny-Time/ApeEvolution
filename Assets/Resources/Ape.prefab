@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.63512623, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   intelligence: 0
   mutation: 0
   charisma: 0
+  genes: []
   genderColor: {fileID: 4088891788716945405}
   ageSize: {fileID: 4088891788716945406}
 --- !u!58 &-1745017446405281045

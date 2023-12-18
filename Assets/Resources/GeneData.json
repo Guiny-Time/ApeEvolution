@@ -5,7 +5,7 @@
         "name": "CCR5",
         "id": 0,
         "immunity": 80,
-        "intelligence": 15,
+        "intelligence": 45,
         "charisma": 12,
         "mutation": 5
     },
@@ -13,7 +13,7 @@
         "name": "HBB",
         "id": 1,
         "immunity": 94,
-        "intelligence": 13,
+        "intelligence": 43,
         "charisma": 10,
         "mutation": 7
     },
@@ -29,7 +29,7 @@
         "name": "EPAS1",
         "id": 3,
         "immunity": 70,
-        "intelligence": 13,
+        "intelligence": 43,
         "charisma": 10,
         "mutation": 10
     },
@@ -37,7 +37,7 @@
         "name": "G127V",
         "id": 4,
         "immunity": 80,
-        "intelligence": 3,
+        "intelligence": 33,
         "charisma": 23,
         "mutation": 2
     },
@@ -45,7 +45,7 @@
         "name": "NOSLAP",
         "id": 5,
         "immunity": 0,
-        "intelligence": 0,
+        "intelligence": 20,
         "charisma": 2,
         "mutation": 33
     },
@@ -53,7 +53,7 @@
         "name": "SOST",
         "id": 6,
         "immunity": 98,
-        "intelligence": 1,
+        "intelligence": 31,
         "charisma": 45,
         "mutation": 6
     },
@@ -61,7 +61,7 @@
         "name": "LRP5",
         "id": 7,
         "immunity": 94,
-        "intelligence": 0,
+        "intelligence": 30,
         "charisma": 20,
         "mutation": 20
     },
@@ -85,7 +85,7 @@
         "name": "MC1R",
         "id": 10,
         "immunity": 4,
-        "intelligence": 9,
+        "intelligence": 39,
         "charisma": 79,
         "mutation": 44
     },
@@ -93,7 +93,7 @@
         "name": "SLC24A5",
         "id": 11,
         "immunity": 27,
-        "intelligence": 33,
+        "intelligence": 63,
         "charisma": 90,
         "mutation": 70
     },
@@ -101,7 +101,7 @@
         "name": "SLC24A2",
         "id": 12,
         "immunity": 25,
-        "intelligence": 23,
+        "intelligence": 53,
         "charisma": 87,
         "mutation": 55
     },

@@ -19,6 +19,13 @@ public class ApeMgr : BaseMgr<ApeMgr>
     // todo: 在评分达到下一阶段时更新该数值
     public int geneStage = 4;
 
+    // 生存压力系数
+    public float pressureFactor = 1;
+
+    // 最大年龄限制
+    // maxAge*100/365 = 实际年限，如142.44f = 14244/365 = 39岁
+    public float maxAge = 142.44f;
+
     public void AddApe(Ape a)
     {
         // 加入总列表
@@ -117,7 +124,7 @@ public class ApeMgr : BaseMgr<ApeMgr>
     /// <returns></returns>
     public bool ExistentialPressure()
     {
-        return (apes.Count >= 101);
+        return (apes.Count >= 101 * pressureFactor);
     }
 
     public int CalAllGenePoints()
@@ -128,7 +135,6 @@ public class ApeMgr : BaseMgr<ApeMgr>
             foreach (var g in a.genes)
             {
                 result += g.immunity;
-                result += g.charisma;
                 result += g.intelligence;
             }
             

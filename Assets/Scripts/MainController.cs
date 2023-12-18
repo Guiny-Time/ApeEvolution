@@ -39,5 +39,23 @@ public class MainController : BaseMgr<MainController>
             });
         }
     }
+
+    /// <summary>
+    /// 游戏失败
+    /// 场上只剩下同性猩猩
+    /// 或无幸存者
+    /// </summary>
+    private void GameOver()
+    {
+        
+    }
+
+    /// <summary>
+    /// 评分达标
+    /// </summary>
+    private void GameCompleted()
+    {
+        
+    }
     
 }

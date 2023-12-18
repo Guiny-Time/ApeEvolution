@@ -80,13 +80,13 @@ public class Ape : MonoBehaviour
     /// 免疫力P in illness, and P to be healed after ill
     /// </summary>
     [Header("- Gene Parameters -")]
-    [SerializeField]private float immunity;
+    public float immunity;
 
     /// <summary>
     /// 智力related to it's gene<br></br>
     /// high intelligence can live better in terrible environment
     /// </summary>
-    [SerializeField]private float intelligence;
+    public float intelligence;
 
     /// <summary>
     /// 变异率P in gene mutation
@@ -99,7 +99,7 @@ public class Ape : MonoBehaviour
     /// low: ugly; high: cool<br></br>
     /// P in met with different gender and make baby (what
     /// </summary>
-    [SerializeField]private float charisma;
+    public float charisma;
 
     /// <summary>
     /// 猩猩个体持有的基因列表<br></br>
@@ -145,14 +145,13 @@ public class Ape : MonoBehaviour
         target = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
         _apeMgr = ApeMgr.GetInstance();
         _geneMgr = GeneMgr.GetInstance();
-        
-        ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
-        ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
-        genderColor.color = (gender == 0) ? maleColor : femaleColor;
+
+        SexColor();
     }
 
     private void Update()
     {
+        ageSize.localScale = new Vector3(0.5f + (age-1) * 0.005f,0.5f + (age-1)*0.005f,0.5f + (age-1)*0.005f);  // 年龄特征（大小）
         GrowthCycle();
         if (sexualMaturity && !pregnant && !_apeMgr.ExistentialPressure())
         {
@@ -166,7 +165,6 @@ public class Ape : MonoBehaviour
         if (pregnant)
         {
             PregnancyCycle();
-            genderColor.color = Color.cyan;
         }
     }
 
@@ -179,10 +177,8 @@ public class Ape : MonoBehaviour
         health = 100.0f;                // 初始健康100
         ill = false;                    // 初始未生病
         pregnant = false;               // 初始未怀孕
-        
-        ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
-        ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
-        genderColor.color = (gender == 0) ? maleColor : femaleColor;    // 性别特征（颜色）
+
+        SexColor();
         ageSize.localScale = new Vector3(0.5f + (age-1) * 0.005f,0.5f + (age-1)*0.005f,0.5f + (age-1)*0.005f);  // 年龄特征（大小）
 
         genes = GeneMgr.GetInstance().GenerateGeneList(_apeMgr.geneStage);  // 初始基因组
@@ -202,10 +198,8 @@ public class Ape : MonoBehaviour
         health = 100.0f;
         ill = false;
         pregnant = false;
-        
-        ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
-        ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
-        genderColor.color = (gender == 0) ? maleColor : femaleColor;
+
+        SexColor();
         ageSize.localScale = new Vector3(0.5f,0.5f,0.5f);
 
         _apeMgr.AddApe(this);
@@ -293,12 +287,10 @@ public class Ape : MonoBehaviour
             sexualMaturity = true;
             _apeMgr.AddOesApe(this);
         }
-        if (Time.time - g_startTime >= 142.44f)
+        if (Time.time - g_startTime >= _apeMgr.maxAge)
         {
             // 猩猩死亡
             Death();
-            StopAllCoroutines();
-            PoolMgr.GetInstance().PushObj("Ape", this.gameObject); // 回到对象池
         }
     }
 
@@ -318,9 +310,20 @@ public class Ape : MonoBehaviour
             _apeMgr.AddOesApe(this);
             pregnant = false;
             hasMatted = false;
+            SexColor();
         }
     }
 
+    /// <summary>
+    /// 个体颜色
+    /// </summary>
+    public void SexColor()
+    {
+        ColorUtility.TryParseHtmlString( "#FFA700" , out Color maleColor );
+        ColorUtility.TryParseHtmlString( "#F8495E" , out Color femaleColor );
+        genderColor.color = (gender == 0) ? maleColor : femaleColor;    // 性别特征（颜色）
+    }
+    
     /// <summary>
     /// 猩猩死亡，重置一切变量，移除出管理器
     /// </summary>
@@ -343,6 +346,7 @@ public class Ape : MonoBehaviour
         g_startTime = 0;
         hasMatted = false;
         lover = null;
+        PoolMgr.GetInstance().PushObj("Ape", this.gameObject); // 回到对象池
     }
     
     /// <summary>
@@ -359,6 +363,7 @@ public class Ape : MonoBehaviour
                 _apeMgr.RemoveOesApe(this);
                 lover = other.gameObject.GetComponent<Ape>();
                 p_startTime = Time.time;
+                genderColor.color = Color.cyan;
                 pregnant = true;
                 hasMatted = true;
             }
