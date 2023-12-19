@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI; 
@@ -9,30 +11,34 @@ public class AudioMgr : BaseMgr<AudioMgr>
     /// 背景音乐组件
     /// </summary>
     public AudioSource bkMusic = null;
-    public Slider bkSlider; 
+
     /// <summary>
     /// 音效组件
     /// </summary>
     public AudioSource soundMusic = null;
-    public Slider soundSlider;
 
-
-    //音效列表
-    public List<AudioClip> soundList = new List<AudioClip>();
-    
     //音乐大小
     private float bkValue = 1;
     //音效大小
     private float soundValue = 1;
 
-    private void Update()
+    private AudioClip bgm = null;
+    private AudioClip sound = null;
+
+    private void Awake()
     {
-        float bk_value = bkSlider.value;
-        float sound_value = soundSlider.value;
-        ChangeBKValue(bk_value);
-        ChangeSoundValue(sound_value);
+        bkMusic = this.GetComponent<AudioSource>() ? this.GetComponent<AudioSource>() : this.AddComponent<AudioSource>();
+        soundMusic = this.AddComponent<AudioSource>();
+        bkMusic.loop = true;
+        bkMusic.volume = 0.8f;
+        DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Start()
+    {
+        ChangeBKMusic("Music/bgm");
+        PlayBkMusic();
+    }
 
 
     /// <summary>
@@ -41,7 +47,9 @@ public class AudioMgr : BaseMgr<AudioMgr>
     /// <param name="fileName"></param>
     public void ChangeBKMusic(string fileName)
     {
-        bkMusic.clip = ResMgr.GetInstance().Load<AudioClip>(fileName);
+        bgm = Resources.Load(fileName) as AudioClip;
+        bkMusic.clip = bgm;
+        // bkMusic.PlayOneShot(bgm);
     }
 
     /// <summary>
@@ -100,9 +108,11 @@ public class AudioMgr : BaseMgr<AudioMgr>
     /// <summary>
     /// 播放音效
     /// </summary>
-    public void PlaySound(int i)
+    public void PlaySound(string fileName)
     {
-        soundMusic.clip = soundList[i];
+        soundMusic.Stop();
+        sound = Resources.Load(fileName) as AudioClip;
+        soundMusic.clip = sound;
         soundMusic.Play();
     }
 

@@ -28,12 +28,14 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public GameObject gameCompletedWindow;
     private ApeMgr _apeMgr;
+    private AudioMgr _audioMgr;
     
     
     // Start is called before the first frame update
     void Start()
     {
         _apeMgr = ApeMgr.GetInstance();
+        _audioMgr = AudioMgr.GetInstance();
         genePoints.value = 0;
         emotion.sprite = Resources.Load<Sprite>("emo1");
     }
@@ -43,11 +45,13 @@ public class UI_MainMgr : MonoBehaviour
     {
         if (_apeMgr.DeadRoll())
         {
+            // _audioMgr.PlaySound("Music/gameOver");
             ShowGameOver();
         }
 
         if (Math.Abs(genePoints.value - genePoints.maxValue) < 5)
         {
+            _audioMgr.PlaySound("Music/Victory");
             ShowGameCompleted();
         }
         
@@ -71,6 +75,7 @@ public class UI_MainMgr : MonoBehaviour
     /// <param name="o"></param>
     public void OnPointerEnter(GameObject o)
     {
+        _audioMgr.PlaySound("Music/arrow");
         o.transform.GetChild(0).gameObject.SetActive(true);
         var UIPos = o.GetComponent<RectTransform>();
         var pos = UIPos.anchoredPosition;
@@ -95,6 +100,7 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public void OnPlagueDown()
     {
+        _audioMgr.PlaySound("Music/plague");
         foreach (var ape in _apeMgr.apes.ToList())
         {
             if (ape.immunity < 280)
@@ -114,6 +120,7 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public void OnIceDown()
     {
+        _audioMgr.PlaySound("Music/ice");
         foreach (var ape in _apeMgr.apes.ToList())
         {
             if (ape.immunity < 200 || ape.intelligence < 150)
@@ -131,6 +138,7 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public void OnVolcanoDown()
     {
+        _audioMgr.PlaySound("Music/volcano");
         _apeMgr.pressureFactor *= 0.95f;
         foreach (var ape in _apeMgr.apes.ToList())
         {
@@ -152,6 +160,7 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public void OnSolarDown()
     {
+        _audioMgr.PlaySound("Music/solar");
         _apeMgr.maxAge = (_apeMgr.maxAge * 100 / 365) * 0.95f * 365 / 100;
         foreach (var ape in _apeMgr.apes.ToList())
         {

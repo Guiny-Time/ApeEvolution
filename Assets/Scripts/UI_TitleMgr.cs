@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class UI_TitleMgr : MonoBehaviour
 {
+    private void Start()
+    {
+        AudioMgr.GetInstance();
+    }
+
     /// <summary>
     /// Start a new game
     /// </summary>
@@ -27,5 +33,10 @@ public class UI_TitleMgr : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void PlayAudio()
+    {
+        AudioMgr.GetInstance().PlaySound("Music/arrow");
     }
 }

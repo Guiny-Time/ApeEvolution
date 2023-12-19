@@ -71,7 +71,7 @@
      <Folder Include="Assets\SimpleLocalization\Scripts" />
      <Folder Include="Assets\Scripts" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-     <Folder Include="Assets\Arts\Music" />
+     <Folder Include="Assets\Resources\Music" />
      <Folder Include="Assets\TextMesh Pro\Resources\Fonts &amp; Materials" />
      <Folder Include="Assets\SimpleLocalization\Resources\Localization" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
