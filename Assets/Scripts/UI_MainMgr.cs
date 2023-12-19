@@ -39,7 +39,7 @@ public class UI_MainMgr : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (_apeMgr.DeadRoll())
         {

@@ -168,12 +168,37 @@ public class Ape : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 游戏开始时初始化随机个体
+    /// </summary>
     public void InitApe()
     {
         age = Random.Range(5, 25);      // 随机生成5~24岁的猩猩
         g_startTime = Time.time - (age * 3.6f);
         sexualMaturity = (age >= 16);   // 判断是否性成熟
         gender = Random.Range(0, 2);    // 随机性别
+        health = 100.0f;                // 初始健康100
+        ill = false;                    // 初始未生病
+        pregnant = false;               // 初始未怀孕
+
+        SexColor();
+        ageSize.localScale = new Vector3(0.5f + (age-1) * 0.005f,0.5f + (age-1)*0.005f,0.5f + (age-1)*0.005f);  // 年龄特征（大小）
+
+        genes = GeneMgr.GetInstance().GenerateGeneList(_apeMgr.geneStage);  // 初始基因组
+        CalculateGeneParams();         // 计算综合得分
+
+        _apeMgr.AddApe(this);  // 加入猩猩管理器
+    }
+    
+    /// <summary>
+    /// 指定性别的初始化
+    /// </summary>
+    public void InitApe(int g)
+    {
+        age = Random.Range(5, 25);      // 随机生成5~24岁的猩猩
+        g_startTime = Time.time - (age * 3.6f);
+        sexualMaturity = (age >= 16);   // 判断是否性成熟
+        gender = g;                     // 指定性别
         health = 100.0f;                // 初始健康100
         ill = false;                    // 初始未生病
         pregnant = false;               // 初始未怀孕
@@ -216,7 +241,7 @@ public class Ape : MonoBehaviour
         {
             var position = transform.position;
             o.transform.position = new Vector3(position.x + Random.Range(-2, 2), position.y + Random.Range(-2, 2), 0);
-            o.transform.parent = MainController.GetInstance()._apeContainer.transform;
+            o.transform.parent = MainController.GetInstance().apeContainer.transform;
             o.GetComponent<Ape>().InitBabyData();
             o.GetComponent<Ape>().genes = _geneMgr.GenerateGeneListFromParent(this, lover, _apeMgr.geneStage);// 新生儿基因组
             o.GetComponent<Ape>().CalculateGeneParams();

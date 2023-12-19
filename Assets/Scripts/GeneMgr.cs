@@ -16,12 +16,6 @@ public class GeneMgr : BaseMgr<GeneMgr>
         geneDBJson = JsonUtility.FromJson<GeneDataBase>(geneFile.text);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// 根据需要的数量生成基因词条列表
     /// </summary>

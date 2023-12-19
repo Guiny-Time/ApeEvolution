@@ -3,25 +3,17 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utils;
 using Random = UnityEngine.Random;
 
 public class MainController : BaseMgr<MainController>
 {
-    public GameObject _apeContainer;
-    private ApeMgr _apeMgr;
+    public GameObject apeContainer;
 
-    // Start is called before the first frame update
     void Start()
     {
         GenerateNewGame();
-        _apeMgr = ApeMgr.GetInstance();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>
@@ -30,26 +22,31 @@ public class MainController : BaseMgr<MainController>
     /// </summary>
     private void GenerateNewGame()
     {
+        // 防止死局
+        PoolMgr.GetInstance().GetObj("Ape",  o =>
+        {
+            o.transform.position = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
+            o.transform.parent = apeContainer.transform;
+            o.GetComponent<Ape>().InitApe(0);
+        });
+        PoolMgr.GetInstance().GetObj("Ape",  o =>
+        {
+            o.transform.position = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
+            o.transform.parent = apeContainer.transform;
+            o.GetComponent<Ape>().InitApe(1);
+        });
+        
         // 初始族群的成员数量
-        int ape_number = Random.Range(4, 10);
-        for (int i = 0; i < ape_number; i++)
+        var apeNumber = Random.Range(4, 10);
+        for (int i = 0; i < apeNumber; i++)
         {
             PoolMgr.GetInstance().GetObj("Ape",  o =>
             {
                 o.transform.position = new Vector3(Random.Range(-18, 18), Random.Range(-8, 8), 0);
-                o.transform.parent = _apeContainer.transform;
+                o.transform.parent = apeContainer.transform;
                 o.GetComponent<Ape>().InitApe();
             });
         }
     }
-    
 
-    /// <summary>
-    /// 评分达标
-    /// </summary>
-    private void GameCompleted()
-    {
-        
-    }
-    
 }
