@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_MainMgr : MonoBehaviour
@@ -15,6 +17,16 @@ public class UI_MainMgr : MonoBehaviour
     /// 生存压力显示
     /// </summary>
     public Image emotion;
+
+    /// <summary>
+    /// 游戏结束画面
+    /// </summary>
+    public GameObject gameOverWindow;
+
+    /// <summary>
+    /// 游戏胜利画面
+    /// </summary>
+    public GameObject gameCompletedWindow;
     private ApeMgr _apeMgr;
     
     
@@ -29,6 +41,16 @@ public class UI_MainMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_apeMgr.DeadRoll())
+        {
+            ShowGameOver();
+        }
+
+        if (Math.Abs(genePoints.value - genePoints.maxValue) < 5)
+        {
+            ShowGameCompleted();
+        }
+        
         if (_apeMgr.apes.Count > 100 * _apeMgr.pressureFactor)
             emotion.sprite = Resources.Load<Sprite>("emo5");
         else if (_apeMgr.apes.Count > 80 * _apeMgr.pressureFactor)
@@ -62,9 +84,9 @@ public class UI_MainMgr : MonoBehaviour
     public void OnPointerExit(GameObject o)
     {
         o.transform.GetChild(0).gameObject.SetActive(false);
-        var UIPos = o.GetComponent<RectTransform>();
-        var pos = UIPos.anchoredPosition;
-        UIPos.anchoredPosition = new Vector2(pos.x, pos.y - 100);
+        var uiPos = o.GetComponent<RectTransform>();
+        var pos = uiPos.anchoredPosition;
+        uiPos.anchoredPosition = new Vector2(pos.x, pos.y - 100);
     }
 
     /// <summary>
@@ -135,5 +157,31 @@ public class UI_MainMgr : MonoBehaviour
         {
             ape.mutation *= 2;
         }
+    }
+
+    /// <summary>
+    /// 显示游戏失败弹窗
+    /// </summary>
+    public void ShowGameOver()
+    {
+        gameOverWindow.SetActive(true);
+    }
+
+    /// <summary>
+    /// 显示游戏胜利弹窗
+    /// </summary>
+    public void ShowGameCompleted()
+    {
+        gameCompletedWindow.SetActive(true);
+    }
+    
+    /// <summary>
+    /// 游戏失败
+    /// 场上只剩下同性猩猩
+    /// 或无幸存者
+    /// </summary>
+    public void GameOver()
+    {
+        SceneManager.LoadScene("0-Title");
     }
 }

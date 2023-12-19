@@ -2,17 +2,20 @@ using System.Collections;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using Utils;
 using Random = UnityEngine.Random;
 
 public class MainController : BaseMgr<MainController>
 {
     public GameObject _apeContainer;
+    private ApeMgr _apeMgr;
 
     // Start is called before the first frame update
     void Start()
     {
         GenerateNewGame();
+        _apeMgr = ApeMgr.GetInstance();
     }
 
     // Update is called once per frame
@@ -39,16 +42,7 @@ public class MainController : BaseMgr<MainController>
             });
         }
     }
-
-    /// <summary>
-    /// 游戏失败
-    /// 场上只剩下同性猩猩
-    /// 或无幸存者
-    /// </summary>
-    private void GameOver()
-    {
-        
-    }
+    
 
     /// <summary>
     /// 评分达标

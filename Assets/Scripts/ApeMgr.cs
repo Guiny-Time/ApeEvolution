@@ -142,4 +142,28 @@ public class ApeMgr : BaseMgr<ApeMgr>
 
         return result;
     }
+
+    /// <summary>
+    /// 死局判定
+    /// </summary>
+    /// <returns></returns>
+    public bool DeadRoll()
+    {
+        // 全死了
+        if (apes.Count == 0)
+        {
+            return true;
+        }
+        
+        var p = 1;
+        var fC = 0;
+        foreach (var ape in apes)
+        {
+            p *= ape.gender;
+            fC += (ape.gender == 0) ? 1 : 0;
+        }
+
+        // 均为同性性猩猩
+        return p == 1 || fC == apes.Count;
+    }
 }
