@@ -1,7 +1,13 @@
-Key,English,German,Russian
-Tests.Example.Title,Tests,Prüfungen,Тесты
-Tests.Example.Multiline,"Line#1
-Line#2","Linie#1
-Linie#2","Строка#1
-Строка#2"
-Tests.Example.Quotes,"A cat says ""MEOW""","Katze sagte ""MIAU""","Кот сказал ""МЯУ"""
+Key,English,Chinese
+Main.Card.Plague1,Eliminate immunocompetent individuals,筛选免疫力不合格的个体
+Main.Card.Plague2,Reduced survivor charm,降低幸存者的魅力
+Main.Card.Ice1,Eliminate immunocompetent and,筛选免疫力不合格与
+Main.Card.Ice2,unintelligent individuals,智力不合格的个体
+Main.Card.Volcano1,Eliminate unintelligent individuals,筛选智力不合格的个体
+Main.Card.Volcano2,Increase survival pressure,增大生存压力
+Main.Card.Volcano3, Low down overall mutation rate, 降低突变率
+Main.Card.Solar1,Raise overall mutation rate,提升突变率
+Main.Card.Solar2,Shorten lifespan,缩短生命周期
+Main.Ending.Lose,Game over!,游戏结束！
+Main.Ending.Win,You WIN!!!,你胜利了！！！
+Main.Ending.Back,Back,返回

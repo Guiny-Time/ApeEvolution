@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 	public class LanguageMgr : BaseMgr<LanguageMgr>
 	{
-		public Text FormattedText;
+		// public Text FormattedText;
 
 		/// <summary>
 		/// Called on app start.
@@ -14,7 +14,7 @@ using UnityEngine.UI;
 		{
 			LocalizationManager.Read();
 
-			switch (Application.systemLanguage)
+			/*switch (Application.systemLanguage)
 			{
 				case SystemLanguage.Chinese:
 					LocalizationManager.Language = "Chinese";
@@ -22,13 +22,13 @@ using UnityEngine.UI;
 				default:
 					LocalizationManager.Language = "English";
 					break;
-			}
+			}*/
 
 			// This way you can localize and format strings from code.
-			FormattedText.text = LocalizationManager.Localize("Settings.Example.PlayTime", TimeSpan.FromHours(10.5f).TotalHours);
+			// FormattedText.text = LocalizationManager.Localize("Settings.Example.PlayTime", TimeSpan.FromHours(10.5f).TotalHours);
 
 			// This way you can subscribe to LocalizationChanged event.
-			LocalizationManager.OnLocalizationChanged += () => FormattedText.text = LocalizationManager.Localize("Settings.Example.PlayTime", TimeSpan.FromHours(10.5f).TotalHours);
+			// LocalizationManager.OnLocalizationChanged += () => FormattedText.text = LocalizationManager.Localize("Settings.Example.PlayTime", TimeSpan.FromHours(10.5f).TotalHours);
 		}
 
 		/// <summary>
@@ -55,7 +55,7 @@ using UnityEngine.UI;
 		/// </summary>
 		public void PlayDialog(int index)
 		{
-			FormattedText.text = LocalizationManager.Localize("Setting.DialogTest" + index);
+			// FormattedText.text = LocalizationManager.Localize("Setting.DialogTest" + index);
 		}
 		
 	}
