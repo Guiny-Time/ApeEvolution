@@ -11,3 +11,19 @@ Main.Card.Solar2,Shorten lifespan,缩短生命周期
 Main.Ending.Lose,Game over!,游戏结束！
 Main.Ending.Win,You WIN!!!,你胜利了！！！
 Main.Ending.Back,Back,返回
+Tutor.Log.Log1,"Hi there, I am your tutor!",那边的小子你好，我是你的导师！
+Tutor.Log.Log2,"Good morning, I am glad to seeya here",早上好，很高兴在这里见到你
+Tutor.Log.Log3,"Now, I will teach you how to make these apes evolute into human beings",现在，让我来教你怎么让这群猩猩进化成人类。
+Tutor.Log.Log4,"Now on the screen are two apes, orange for the male and pink for the female.",现在在屏幕上的是两只猩猩，橙色代表雄性猩猩，粉色代表雌性猩猩。
+Tutor.Log.Log5,"They will mate when they are sexually mature, and pregnant females display in cyan. after a pregnancy cycle, the females will give birth.",它们性成熟之后就会进行交配，怀孕的雌性猩猩会显示为青色，经过怀孕周期后，雌性猩猩将分娩后代。
+Tutor.Log.Log6,"When there are many apes in the scene, the opposite sex prioritizes the search for the most attractive potential one.",当有很多猩猩存在的时候，异性之间会优先寻找最具吸引力的潜在对象。
+Tutor.Log.Log7,"The baby apes will inherit the genes of their parents, but may also mutate to produce new genes, depending on the "mutation points" of their parents.",后代将继承父母的基因，不过也有可能突变产生新的基因，这与父母的“突变指数”有关。
+Tutor.Log.Log8,"See the emoji in the upper left corner? It represents the existential pressures the ape community is currently facing.",看到左上角的表情了吗？这代表了猩猩族群目前面临的生存压力。
+Tutor.Log.Log9,"Resources are finite, and once the number of members reaches a certain size, the pressure will prevent the apes from reproducing.",资源是有限的，当族群内成员的数量达到一定规模之后，巨大的生存压力将阻碍猩猩们繁衍后代。
+Tutor.Log.Log10,"However, as a trainee God, you have the power to carry out a premeditated massacre!",不过，作为实习上帝，你有能力进行一场有预谋的的屠杀！
+Tutor.Log.Log11,"See the four cards below? Each card corresponds to a disaster. These disasters can help you filter out good ape individuals.",看到下面的四张卡牌了吗？每一种卡牌都对应了一场大灾难。这些灾难可以帮助你筛选出优秀的猩猩个体。
+Tutor.Log.Log12,"Next to the existential stress indicator is the current gene point total of the group, the better the ape individual the more gene points it can contribute.",生存压力指示器边上的是族群目前的基因点数总和，越优秀的猩猩个体所能贡献的基因点数越多。
+Tutor.Log.Log13,"When the sum of gene points breaks through the maximum, the apes are genetically good enough, which means they can evolve into humans.",当基因点数总和突破最大值的时候，猩猩们的基因就足够优秀了，这代表它们可以进化成人类了。
+Tutor.Log.Log14,"At this point your mission is also complete, so congratulations on your official promotion to God of this planet!",这时你的任务也完成了，恭喜你正式晋级为这颗星球的上帝！
+Tutor.Log.Log15,"But when the apes goes extinct, I must also regretfully inform you that you failed the test.",不过当族群灭绝时，我也得遗憾的通知你考核失败了。
+Tutor.Log.Log16,"Okay, is that all clear now? Then let's officially start the test!",好吧，现在都明白了吗？那让我们正式开始考核吧！
