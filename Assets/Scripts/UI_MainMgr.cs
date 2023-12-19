@@ -29,7 +29,8 @@ public class UI_MainMgr : MonoBehaviour
     public GameObject gameCompletedWindow;
     private ApeMgr _apeMgr;
     private AudioMgr _audioMgr;
-    
+
+    private bool _played = false;
     
     // Start is called before the first frame update
     void Start()
@@ -45,13 +46,23 @@ public class UI_MainMgr : MonoBehaviour
     {
         if (_apeMgr.DeadRoll())
         {
+            if (!_played)
+            {
+                _audioMgr.PlaySound("Music/gameOver");
+                _played = true;
+            }
             // _audioMgr.PlaySound("Music/gameOver");
             ShowGameOver();
         }
 
         if (Math.Abs(genePoints.value - genePoints.maxValue) < 5)
         {
-            _audioMgr.PlaySound("Music/Victory");
+            if (!_played)
+            {
+                _audioMgr.PlaySound("Music/Victory");
+                _played = true;
+            }
+            
             ShowGameCompleted();
         }
         
