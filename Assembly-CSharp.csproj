@@ -45,6 +45,7 @@
      <Compile Include="Assets\Scripts\LanguageMgr.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizationSettings.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizedDropdown.cs" />
+     <Compile Include="Assets\Scripts\UI_TutoeMgr.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizationManager.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\LocalizedText.cs" />
      <Compile Include="Assets\Scripts\Utils\PoolData.cs" />
@@ -62,7 +63,6 @@
      <Compile Include="Assets\Scripts\UI_MainMgr.cs" />
      <Compile Include="Assets\SimpleLocalization\Scripts\Sheet.cs" />
      <Compile Include="Assets\Scripts\Utils\BaseMgr.cs" />
-     <Compile Include="Assets\Scripts\UI_TutoeMgr.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

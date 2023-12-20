@@ -131,7 +131,7 @@ public class Ape : MonoBehaviour
     
     private bool hasMatted; // 是否已经交配
     private Ape lover;
-    private float p_startTime;      //怀孕周期计时器
+    private float p_startTime;      // 怀孕周期计时器
     private float g_startTime;      // 成长周期计时器
     private Vector3 target;         // normal move 目标
 

@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.SimpleLocalization.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class UI_MainMgr : MonoBehaviour
 {
@@ -27,21 +29,29 @@ public class UI_MainMgr : MonoBehaviour
     /// 游戏胜利画面
     /// </summary>
     public GameObject gameCompletedWindow;
+    
+    /// <summary>
+    /// 对话
+    /// </summary>
+    public Text FormattedText;
+
+    public Animator god;
+    
     private ApeMgr _apeMgr;
     private AudioMgr _audioMgr;
+    private float _logTime;
 
     private bool _played = false;
     
-    // Start is called before the first frame update
     void Start()
     {
         _apeMgr = ApeMgr.GetInstance();
         _audioMgr = AudioMgr.GetInstance();
         genePoints.value = 0;
         emotion.sprite = Resources.Load<Sprite>("emo1");
+        _logTime = Time.time;
     }
-
-    // Update is called once per frame
+    
     void LateUpdate()
     {
         if (_apeMgr.DeadRoll())
@@ -49,6 +59,8 @@ public class UI_MainMgr : MonoBehaviour
             if (!_played)
             {
                 _audioMgr.PlaySound("Music/gameOver");
+                god.Play("Speak");
+                FormattedText.text = LocalizationManager.Localize("Main.Log.Lose");
                 _played = true;
             }
             // _audioMgr.PlaySound("Music/gameOver");
@@ -60,14 +72,22 @@ public class UI_MainMgr : MonoBehaviour
             if (!_played)
             {
                 _audioMgr.PlaySound("Music/Victory");
+                god.Play("Speak");
+                FormattedText.text = LocalizationManager.Localize("Main.Log.Win");
                 _played = true;
             }
             
             ShowGameCompleted();
         }
-        
+
         if (_apeMgr.apes.Count > 100 * _apeMgr.pressureFactor)
+        {
+            if (Math.Abs(genePoints.value - genePoints.maxValue) > 5)
+            {
+                FormattedText.text = LocalizationManager.Localize("Main.Log.Max");
+            }
             emotion.sprite = Resources.Load<Sprite>("emo5");
+        }
         else if (_apeMgr.apes.Count > 80 * _apeMgr.pressureFactor)
             emotion.sprite = Resources.Load<Sprite>("emo4");
         else if (_apeMgr.apes.Count > 50 * _apeMgr.pressureFactor)
@@ -78,6 +98,8 @@ public class UI_MainMgr : MonoBehaviour
             emotion.sprite = Resources.Load<Sprite>("emo1");
 
         genePoints.value = _apeMgr.CalAllGenePoints();
+        
+        LogTimer();
     }
 
     /// <summary>
@@ -105,12 +127,25 @@ public class UI_MainMgr : MonoBehaviour
         uiPos.anchoredPosition = new Vector2(pos.x, pos.y - 100);
     }
 
+    public void LogTimer()
+    {
+        if (Time.time - _logTime >= 8.0f)
+        {
+            god.Play((Random.Range(0, 2) == 0) ? "Teach" : "Speak");
+            var randomIndex = Random.Range(1, 11);
+            FormattedText.text = LocalizationManager.Localize("Main.Log.Log" + randomIndex.ToString());
+            _logTime = Time.time;
+        }
+    }
+
     /// <summary>
     /// 瘟疫
     /// 筛选免疫力较低个体，降低幸存个体的颜值
     /// </summary>
     public void OnPlagueDown()
     {
+        god.Play((Random.Range(0, 2) == 0) ? "Teach" : "Speak");
+        FormattedText.text = LocalizationManager.Localize("Main.Log.Plague");
         _audioMgr.PlaySound("Music/plague");
         foreach (var ape in _apeMgr.apes.ToList())
         {
@@ -131,6 +166,8 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public void OnIceDown()
     {
+        god.Play((Random.Range(0, 2) == 0) ? "Teach" : "Speak");
+        FormattedText.text = LocalizationManager.Localize("Main.Log.Ice");
         _audioMgr.PlaySound("Music/ice");
         foreach (var ape in _apeMgr.apes.ToList())
         {
@@ -149,6 +186,8 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public void OnVolcanoDown()
     {
+        god.Play((Random.Range(0, 2) == 0) ? "Teach" : "Speak");
+        FormattedText.text = LocalizationManager.Localize("Main.Log.Volcano");
         _audioMgr.PlaySound("Music/volcano");
         _apeMgr.pressureFactor *= 0.95f;
         foreach (var ape in _apeMgr.apes.ToList())
@@ -171,6 +210,8 @@ public class UI_MainMgr : MonoBehaviour
     /// </summary>
     public void OnSolarDown()
     {
+        god.Play((Random.Range(0, 2) == 0) ? "Teach" : "Speak");
+        FormattedText.text = LocalizationManager.Localize("Main.Log.Solar");
         _audioMgr.PlaySound("Music/solar");
         _apeMgr.maxAge = (_apeMgr.maxAge * 100 / 365) * 0.95f * 365 / 100;
         foreach (var ape in _apeMgr.apes.ToList())
