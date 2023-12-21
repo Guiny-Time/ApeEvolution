@@ -14,6 +14,7 @@ public class MainController : BaseMgr<MainController>
     void Start()
     {
         GenerateNewGame();
+        Application.targetFrameRate = 150;
     }
 
     /// <summary>
